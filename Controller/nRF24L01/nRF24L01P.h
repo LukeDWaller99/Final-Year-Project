@@ -268,7 +268,7 @@ public:
      * @param count the number of bytes to receive (1..32)
      * @return the number of bytes actually received, 0 if none are received, or -1 for an error
      */
-    int read(int pipe, char *data, int count);
+    int read( char *data, int pipe = NRF24L01P_PIPE_P0, int count = DEFAULT_NRF24L01P_TRANSFER_SIZE);
 
     /**
      * Determine if there is data available to read

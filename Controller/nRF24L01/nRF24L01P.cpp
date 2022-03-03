@@ -895,7 +895,7 @@ int nRF24L01P::write(char *data, int pipe, int count) {
 }
 
 
-int nRF24L01P::read(int pipe, char *data, int count) {
+int nRF24L01P::read(char *data, int pipe, int count) {
 
     if ( ( pipe < NRF24L01P_PIPE_P0 ) || ( pipe > NRF24L01P_PIPE_P5 ) ) {
 
