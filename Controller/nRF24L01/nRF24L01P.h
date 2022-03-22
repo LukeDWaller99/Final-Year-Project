@@ -76,7 +76,7 @@
 #define DEFAULT_NRF24L01P_RF_FREQUENCY  (NRF24L01P_MIN_RF_FREQUENCY + 2)
 #define DEFAULT_NRF24L01P_DATARATE       NRF24L01P_DATARATE_1_MBPS
 #define DEFAULT_NRF24L01P_TX_PWR         NRF24L01P_TX_PWR_ZERO_DB
-#define DEFAULT_NRF24L01P_TRANSFER_SIZE  4
+#define DEFAULT_NRF24L01P_TRANSFER_SIZE  5
 
 /**
  * nRF24L01+ Single Chip 2.4GHz Transceiver from Nordic Semiconductor.
@@ -253,22 +253,22 @@ public:
     /**
      * Transmit data
      *
-     * @param pipe is ignored (included for consistency with file write routine)
      * @param data pointer to an array of bytes to write
      * @param count the number of bytes to send (1..32)
+     * @param pipe is ignored (included for consistency with file write routine)
      * @return the number of bytes actually written, or -1 for an error
      */
-    int write(int pipe, char *data, int count);
-    
+    int write(char *data, int count = DEFAULT_NRF24L01P_TRANSFER_SIZE, int pipe = NRF24L01P_PIPE_P0);
+
     /**
      * Receive data
      *
-     * @param pipe the receive pipe to get data from
      * @param data pointer to an array of bytes to store the received data
      * @param count the number of bytes to receive (1..32)
+     * @param pipe the receive pipe to get data from
      * @return the number of bytes actually received, 0 if none are received, or -1 for an error
      */
-    int read(int pipe, char *data, int count);
+    int read(char *data, int count = DEFAULT_NRF24L01P_TRANSFER_SIZE, int pipe = NRF24L01P_PIPE_P0);
 
     /**
      * Determine if there is data available to read
@@ -338,7 +338,6 @@ private:
     SPI         spi_;
     DigitalOut  nCS_;
     DigitalOut  ce_;
-    InterruptIn nIRQ_;
 
     int mode;
 
