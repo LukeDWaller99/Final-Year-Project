@@ -175,8 +175,7 @@ nRF24L01P::nRF24L01P(PinName mosi,
                      PinName miso, 
                      PinName sck, 
                      PinName csn,
-                     PinName ce,
-                     PinName irq) : spi_(mosi, miso, sck), nCS_(csn), ce_(ce){
+                     PinName ce) : spi_(mosi, miso, sck), nCS_(csn), ce_(ce){
 
     mode = _NRF24L01P_MODE_UNKNOWN;
 
