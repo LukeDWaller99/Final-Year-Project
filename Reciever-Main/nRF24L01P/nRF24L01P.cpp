@@ -176,7 +176,7 @@ nRF24L01P::nRF24L01P(PinName mosi,
                      PinName sck, 
                      PinName csn,
                      PinName ce,
-                     PinName irq) : spi_(mosi, miso, sck), nCS_(csn), ce_(ce), nIRQ_(irq) {
+                     PinName irq) : spi_(mosi, miso, sck), nCS_(csn), ce_(ce){
 
     mode = _NRF24L01P_MODE_UNKNOWN;
 
@@ -834,7 +834,7 @@ bool nRF24L01P::readable(int pipe) {
 }
 
 
-int nRF24L01P::write(int pipe, char *data, int count) {
+int nRF24L01P::write(char *data, int pipe, int count) {
 
     // Note: the pipe number is ignored in a Transmit / write
 
@@ -893,7 +893,7 @@ int nRF24L01P::write(int pipe, char *data, int count) {
 }
 
 
-int nRF24L01P::read(int pipe, char *data, int count) {
+int nRF24L01P::read(char *data, int pipe, int count) {
 
     if ( ( pipe < NRF24L01P_PIPE_P0 ) || ( pipe > NRF24L01P_PIPE_P5 ) ) {
 
