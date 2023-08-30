@@ -26,11 +26,11 @@
 #define MOTOR_ON        1.0f
 
 // Radio transeiver
-// MOSI, MISO, SCK, CNS, CE, IRQ - must be an interrupt pin 6 
+// MOSI, MISO, SCK, CNS, CE, IRQ - must be an interrupt pin 6
 nRF24L01P nRF24L01(MOSI, MISO, SCK, CSN, CE, IRQ);
 
 // Reat Drive Motors
-ESC FWDLeftMotor(FWD_LHS_MOTOR), 
+ESC FWDLeftMotor(FWD_LHS_MOTOR),
     FWDRightMotor(FWD_RHS_MOTOR),
     REVLeftMotor(REV_LHS_MOTOR),
     REVRightMotor(REV_RHS_MOTOR);
@@ -75,7 +75,7 @@ void bat15percentMethod();
 float ThrottleValue(char* data);
 void flipOutput(DigitalOut pin);
 
-// IRQ Methods 
+// IRQ Methods
 void bat30PercentIRQ();
 void bat15PercentIRQ();
 void btn1IRQ();
@@ -267,10 +267,10 @@ void RadioReceiveMethod(){
                 break;
             }
         }
-        
+
     }
 
-} 
+}
 
 float ThrottleValue(char* data){
    float floatVal = atof(data);
@@ -315,7 +315,7 @@ void RightMotorThreadMethod(){
 }
 
 void LEDMethod(){
-    
+
     printf("LED Thread Running\n");
 
     while (true) {
@@ -335,7 +335,7 @@ void LEDMethod(){
         case 4:
             flipOutput(led4);
             break;
-        case 5: 
+        case 5:
             flipOutput(led5);
             break;
         case 6:
@@ -355,7 +355,7 @@ void LEDMethod(){
             break;
         default:
             break;
-        
+
         }
     }
 }
@@ -366,7 +366,7 @@ void IRMethod(){
 
     ThisThread::flags_wait_any(0x7fffffff, true);
     while (true) {
-        if (rubbishContainerFull == 0) { 
+        if (rubbishContainerFull == 0) {
             rubbishContainerFull = 1;
             printf("Basket Full!!\n");
             buzzer = 1;
@@ -395,7 +395,7 @@ void InputMethod(){
         switch (flag) {
         case 1: // button 1 - disable alarms
             printf("Button 1 pressed - Alarms Disabled\n");
-            battery15percent = 0, 
+            battery15percent = 0,
             battery30percent = 0;
             bat30.rise(NULL);
             bat15.rise(NULL);
@@ -408,9 +408,9 @@ void InputMethod(){
             printf("Litter Basket Emptied - Sensors Reset, Buzzer Renabled\n");
             buzzer = true;
             led2 = 1;
-            rubbishContainerFull = 0;   
+            rubbishContainerFull = 0;
             IR2.rise(IRIRQ);
-            IR4.rise(IRIRQ);        
+            IR4.rise(IRIRQ);
             break;
         case 4: // switch 1 - disable the motors - 4 quick beeps
             printf("Switch 1 Off - Motors Disabled\n");
@@ -431,7 +431,7 @@ void InputMethod(){
         case 16: // switch 3 - not in use
             break;
         case 32: // switch 4 - not in use
-            break; 
+            break;
         case 64: // switch 5 - not in use
             break;
         case 128: // switch 6 - not in use
@@ -462,7 +462,7 @@ void bat30percentMethod(){
 }
 
 void bat15percentMethod(){
-    
+
     printf("Battery 15%% Thread Started\n");
 
     ThisThread::flags_wait_any(0x7fffffff, false);
@@ -474,7 +474,7 @@ void bat15percentMethod(){
             buzzer = 0;
             int x = rubbishContainerFull == 1 ? 1 : 2;
             ThisThread::sleep_for(2s);
-        }        
+        }
     }
 
 }
@@ -582,6 +582,6 @@ void IRIRQ(){
 }
 
 void flipOutput(DigitalOut pin){
-    pin = !pin; 
+    pin = !pin;
 }
 
